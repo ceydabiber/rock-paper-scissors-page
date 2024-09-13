@@ -45,16 +45,36 @@ function playRound(humanChoice, computerChoice){
     if (humanChoice == computerChoice){
         console.log("It's a tie! Try again for another round");
     }
+
     if (humanChoice == "paper"){
         if (computerChoice == "rock"){
             console.log("You have win this round. Congrats!");
+            humanScore =+ 1;
         }
         if (computerChoice == "scissors"){
             console.log("You have lost this round. Try again!");
+            computerScore =+ 1;
         }
     }
     if (humanChoice == "rock"){
-        
+        if (computerChoice == "scissors"){
+            console.log("You have win this round. Congrats!");
+            humanScore =+ 1;
+        }
+        if (computerChoice == "paper"){
+            console.log("You have lost this round. Try again!");
+            computerScore =+ 1;
+        }
+    }
+    if (humanChoice == "scissors"){
+        if (computerChoice == "paper"){
+            console.log("You have win this round. Congrats!");
+            humanScore =+ 1;
+        }
+        if (computerChoice == "rock"){
+            console.log("You have lost this round. Try again!");
+            computerScore =+ 1;
+        }
     }
 
 }
@@ -63,3 +83,4 @@ const humanSelection = getHumanChoice();
 const computerSelection = getComputerChoice();
 
 playRound(humanSelection, computerSelection)
+console.log("Your score: " + humanScore + " Computer score: " + computerScore);

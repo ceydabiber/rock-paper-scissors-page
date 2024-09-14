@@ -43,6 +43,8 @@ function playGame() {
     
     let humanScore = 0;
     let computerScore = 0;
+    let roundCounter = 0;
+    const maxRounds = 5;
 
     const content = document.createElement("div");
     content.classList.add("content");
@@ -55,16 +57,23 @@ function playGame() {
     const resultText = document.createElement("p");
     content.appendChild(resultText);
 
+
     function updateDisplay() {
         scoreDisplay.textContent = `Current Score: You - ${humanScore}, Computer - ${computerScore}`;
-        if (humanScore > computerScore) {
-            resultText.textContent = "Congratulations! You win the game!";
-        } else if (humanScore < computerScore) {
-            resultText.textContent = "Sorry, the computer wins the game. Better luck next time!";
-        } else if (humanScore + computerScore > 0) {
-            resultText.textContent = "The game is a tie!";
+        if (roundCounter >= maxRounds) {
+            if (humanScore > computerScore) {
+                resultText.textContent = "Congratulations! You win the game!";
+            } else if (humanScore < computerScore) {
+                resultText.textContent = "Sorry, the computer wins the game. Better luck next time!";
+            } else {
+                resultText.textContent = "The game is a tie!";
+            }
+            // Disable buttons after the game is over
+            btnRock.disabled = true;
+            btnPaper.disabled = true;
+            btnScissors.disabled = true;
         } else {
-            resultText.textContent = "Make a move to start the game!";
+            resultText.textContent = "Play another round!";
         }
     }
 
@@ -98,17 +107,9 @@ function playGame() {
                 computerScore += 1;
             }
         }
-
+        roundCounter += 1;
         updateDisplay();
     }
-
-    // for (let i = 0; i < 5; i++) {
-    //     console.log(`Round ${i + 1}`);
-    //     const humanChoice = getHumanChoice();
-    //     const computerChoice = getComputerChoice();
-    //     playRound(humanChoice, computerChoice);
-    //     console.log(`Current Score: You - ${humanScore}, Computer - ${computerScore}`);
-    // }
 
     const btnRock = document.createElement('button');
     btnRock.textContent = 'rock';
@@ -121,6 +122,7 @@ function playGame() {
     const btnScissors = document.createElement('button');
     btnScissors.textContent = 'scissors';
     document.body.appendChild(btnScissors);
+
 
     btnRock.addEventListener('click', () => {
         const humanChoice = 'rock';
@@ -139,6 +141,8 @@ function playGame() {
         const computerChoice = getComputerChoice();
         playRound(humanChoice, computerChoice);
     });
+
+    updateDisplay();
 
 }
 
